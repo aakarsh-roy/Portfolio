@@ -3,7 +3,7 @@ const Experience = () => {
     {
       title: 'Full-Stack Development',
       type: 'Learning Journey',
-      period: '2022 - Present',
+      period: '2024 - Present',
       description:
         'Deep diving into the MERN stack, building production-ready applications with React.js frontend and Node.js/Express.js backend. Focused on creating scalable architectures and RESTful APIs.',
       highlights: [
@@ -22,7 +22,7 @@ const Experience = () => {
     {
       title: 'Academic Projects',
       type: 'College Work',
-      period: '2021 - Present',
+      period: '2022 - Present',
       description:
         'Worked on multiple academic projects applying theoretical knowledge to practical implementations. Collaborated with team members and presented solutions to complex problems.',
       highlights: [
@@ -42,7 +42,7 @@ const Experience = () => {
     {
       title: 'Backend Development',
       type: 'Skill Development',
-      period: '2023 - Present',
+      period: '2024 - Present',
       description:
         'Specialized in backend development with focus on building secure, efficient, and scalable APIs. Experience with authentication, authorization, and database optimization.',
       highlights: [

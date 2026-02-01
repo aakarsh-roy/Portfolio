@@ -50,8 +50,8 @@ const Contact = () => {
         </svg>
       ),
       label: 'GitHub',
-      value: 'https://github.com/aakarsh-roy',
-      href: 'https://github.com',
+      value: 'github.com/aakarsh-roy',
+      href: 'https://github.com/aakarsh-roy',
     },
     {
       icon: (
@@ -61,7 +61,7 @@ const Contact = () => {
       ),
       label: 'LinkedIn',
       value: 'linkedin.com/in/aakarshroy',
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/in/aakarsh-roy',
     },
   ];
 
@@ -121,7 +121,7 @@ const Contact = () => {
               <h4 className="text-lg font-semibold text-white mb-4">Follow Me</h4>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/aakarsh-roy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-slate-800/50 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-slate-700/50 border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
@@ -132,7 +132,7 @@ const Contact = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/aakarsh-roy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-slate-800/50 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-slate-700/50 border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
