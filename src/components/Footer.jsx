@@ -20,7 +20,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/aakarsh-roy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-indigo-400 transition-colors"
@@ -31,7 +31,7 @@ const Footer = () => {
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/aakarsh-roy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-indigo-400 transition-colors"

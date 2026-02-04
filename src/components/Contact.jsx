@@ -20,16 +20,41 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'e57a7cf9-5909-4768-b34c-d9739ca83746', // Replace with your Web3Forms access key
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          to_email: 'aakarshroy03@gmail.com',
+          subject: `New Portfolio Contact from ${formData.name}`,
+        }),
+      });
 
-    setSubmitStatus('success');
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '' });
+      const result = await response.json();
 
-    // Reset status after 3 seconds
-    setTimeout(() => setSubmitStatus(null), 3000);
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      // Reset status after 5 seconds
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const contactInfo = [
@@ -40,8 +65,8 @@ const Contact = () => {
         </svg>
       ),
       label: 'Email',
-      value: 'aakarshroy03@email.com',
-      href: 'mailto:aakarshroy@email.com',
+      value: 'aakarshroy03@gmail.com',
+      href: 'mailto:aakarshroy03@gmail.com',
     },
     {
       icon: (
@@ -242,6 +267,13 @@ const Contact = () => {
               {submitStatus === 'success' && (
                 <div className="p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-green-400 text-center animate-fadeIn">
                   Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-red-400 text-center animate-fadeIn">
+                  Failed to send message. Please try again or email me directly.
                 </div>
               )}
             </form>
