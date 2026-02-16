@@ -335,3 +335,74 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE OPTIMIZATIONS
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ─── Safe area for notched devices (iPhone X+) ─────────────────── */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  .fixed.bottom-6 {
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ─── Mobile Performance & Spacing ──────────────────────────────── */
+@media (max-width: 768px) {
+  /* Reduce glass blur on mobile for GPU performance */
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable aurora animations on mobile to save battery & perf */
+  .aurora-layer-1,
+  .aurora-layer-2,
+  .aurora-layer-3 {
+    animation: none !important;
+  }
+
+  /* Reduce blob animation complexity */
+  .animate-blob {
+    animation-duration: 16s;
+  }
+
+  /* Tighten noise overlay on mobile */
+  .noise-overlay::after {
+    opacity: 0.01;
+  }
+
+  /* Prevent horizontal overflow from any element */
+  section {
+    overflow-x: hidden;
+  }
+
+  /* Smaller scroll progress bar on mobile */
+  .scroll-progress {
+    height: 2px;
+  }
+
+  /* Improve touch targets */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better text rendering on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* ─── Small phones (≤ 380px) ────────────────────────────────────── */
+@media (max-width: 380px) {
+  .glass-card {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}

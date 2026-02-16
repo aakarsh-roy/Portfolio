@@ -91,7 +91,7 @@ const Projects = ({ theme }) => {
   const filteredProjects = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className={`py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}>
+    <section id="projects" className={`py-16 md:py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -102,7 +102,7 @@ const Projects = ({ theme }) => {
         >
           <motion.h2
             variants={sectionHeader}
-            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           >
             Featured <span className="gradient-text">Projects</span>
           </motion.h2>
@@ -112,7 +112,7 @@ const Projects = ({ theme }) => {
           />
           <motion.p
             variants={fadeInUp}
-            className={`mt-6 max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+            className={`mt-6 max-w-2xl mx-auto text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
           >
             A showcase of my recent work in full-stack development, from real-time applications to enterprise solutions
           </motion.p>
@@ -148,7 +148,7 @@ const Projects = ({ theme }) => {
         {/* Projects Grid */}
         <motion.div
           layout
-          className="grid md:grid-cols-2 gap-8"
+          className="grid md:grid-cols-2 gap-6 sm:gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => {

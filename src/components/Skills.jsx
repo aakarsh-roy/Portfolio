@@ -86,18 +86,18 @@ const Skills = ({ theme }) => {
   const tools = ['Git', 'GitHub', 'VS Code', 'Postman', 'REST APIs', 'Socket.io', 'Tailwind CSS', 'Bootstrap', 'npm', 'Vite'];
 
   return (
-    <section id="skills" ref={sectionRef} className="py-24 lg:py-32 gradient-bg">
+    <section id="skills" ref={sectionRef} className="py-16 md:py-24 lg:py-32 gradient-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
         >
           <motion.h2
             variants={sectionHeader}
-            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           >
             My <span className="gradient-text">Skills</span>
           </motion.h2>
@@ -107,7 +107,7 @@ const Skills = ({ theme }) => {
           />
           <motion.p
             variants={fadeInUp}
-            className={`mt-6 max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+            className={`mt-6 max-w-2xl mx-auto text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
           >
             A comprehensive toolkit for building modern web applications from frontend to backend
           </motion.p>
@@ -119,7 +119,7 @@ const Skills = ({ theme }) => {
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
         >
           {skillCategories.map((category, index) => {
             const c = colorMap[category.color];
@@ -128,18 +128,18 @@ const Skills = ({ theme }) => {
                 key={index}
                 variants={cardItem}
                 {...hoverLift}
-                className={`glass-card p-6 transition-all duration-300 hover:shadow-lg ${isDark ? 'hover:shadow-indigo-500/5' : 'hover:shadow-indigo-200/30'}`}
+                className={`glass-card p-4 sm:p-6 transition-all duration-300 hover:shadow-lg ${isDark ? 'hover:shadow-indigo-500/5' : 'hover:shadow-indigo-200/30'}`}
               >
                 {/* Category Header */}
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                   <motion.div
-                    className={`w-12 h-12 ${c.bg} rounded-xl flex items-center justify-center ${c.text}`}
+                    className={`w-10 h-10 sm:w-12 sm:h-12 ${c.bg} rounded-xl flex items-center justify-center ${c.text}`}
                     whileHover={{ rotate: 10, scale: 1.1 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
                     {category.icon}
                   </motion.div>
-                  <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  <h3 className={`text-base sm:text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {category.title}
                   </h3>
                 </div>
@@ -173,7 +173,7 @@ const Skills = ({ theme }) => {
 
         {/* Tools & Technologies */}
         <motion.div
-          className="mt-20"
+          className="mt-12 md:mt-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}

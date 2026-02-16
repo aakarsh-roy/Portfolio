@@ -9,30 +9,50 @@ import {
   letterChild,
 } from '../utils/motionVariants';
 
+/* ─── Mobile detection hook ─────────────────────────────────────── */
+
 /* ─── Floating Particle shapes for background depth ─────────────── */
 const FloatingShapes = ({ isDark }) => {
-  const shapes = [
-    { size: 'w-72 h-72', color: 'bg-indigo-500/8', pos: '-top-20 -right-20', delay: 0, blur: 'blur-3xl' },
-    { size: 'w-96 h-96', color: 'bg-purple-500/6', pos: '-bottom-32 -left-32', delay: 2, blur: 'blur-3xl' },
-    { size: 'w-64 h-64', color: 'bg-pink-500/5', pos: 'top-1/3 right-1/4', delay: 4, blur: 'blur-3xl' },
-    { size: 'w-40 h-40', color: 'bg-indigo-400/10', pos: 'top-20 left-1/4', delay: 1, blur: 'blur-2xl' },
-    { size: 'w-32 h-32', color: 'bg-violet-500/8', pos: 'bottom-1/4 right-1/3', delay: 3, blur: 'blur-2xl' },
-  ];
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const shapes = isMobile
+    ? [
+        { size: 'w-48 h-48', color: 'bg-indigo-500/8', pos: '-top-10 -right-10', delay: 0, blur: 'blur-3xl' },
+        { size: 'w-56 h-56', color: 'bg-purple-500/6', pos: '-bottom-16 -left-16', delay: 2, blur: 'blur-3xl' },
+      ]
+    : [
+        { size: 'w-72 h-72', color: 'bg-indigo-500/8', pos: '-top-20 -right-20', delay: 0, blur: 'blur-3xl' },
+        { size: 'w-96 h-96', color: 'bg-purple-500/6', pos: '-bottom-32 -left-32', delay: 2, blur: 'blur-3xl' },
+        { size: 'w-64 h-64', color: 'bg-pink-500/5', pos: 'top-1/3 right-1/4', delay: 4, blur: 'blur-3xl' },
+        { size: 'w-40 h-40', color: 'bg-indigo-400/10', pos: 'top-20 left-1/4', delay: 1, blur: 'blur-2xl' },
+        { size: 'w-32 h-32', color: 'bg-violet-500/8', pos: 'bottom-1/4 right-1/3', delay: 3, blur: 'blur-2xl' },
+      ];
+
+  const dotCount = isMobile ? 3 : 8;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Aurora gradient layers */}
+      {/* Aurora gradient layers — smaller on mobile */}
       <div
-        className={`absolute -top-1/2 -left-1/4 w-[800px] h-[600px] rounded-full blur-3xl aurora-layer-1 ${isDark ? 'bg-indigo-600/8' : 'bg-indigo-400/6'}`}
+        className={`absolute -top-1/2 -left-1/4 w-[300px] h-[250px] md:w-[800px] md:h-[600px] rounded-full blur-3xl aurora-layer-1 ${isDark ? 'bg-indigo-600/8' : 'bg-indigo-400/6'}`}
       />
       <div
-        className={`absolute -bottom-1/3 -right-1/4 w-[700px] h-[500px] rounded-full blur-3xl aurora-layer-2 ${isDark ? 'bg-purple-600/6' : 'bg-purple-400/4'}`}
+        className={`absolute -bottom-1/3 -right-1/4 w-[280px] h-[200px] md:w-[700px] md:h-[500px] rounded-full blur-3xl aurora-layer-2 ${isDark ? 'bg-purple-600/6' : 'bg-purple-400/4'}`}
       />
-      <div
-        className={`absolute top-1/4 right-1/3 w-[400px] h-[400px] rounded-full blur-3xl aurora-layer-3 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-400/3'}`}
-      />
+      {!isMobile && (
+        <div
+          className={`absolute top-1/4 right-1/3 w-[400px] h-[400px] rounded-full blur-3xl aurora-layer-3 ${isDark ? 'bg-cyan-500/5' : 'bg-cyan-400/3'}`}
+        />
+      )}
 
-      {/* Existing blob shapes */}
+      {/* Blob shapes — fewer on mobile */}
       {shapes.map((s, i) => (
         <div
           key={i}
@@ -41,8 +61,8 @@ const FloatingShapes = ({ isDark }) => {
         />
       ))}
 
-      {/* Tiny floating dots */}
-      {[...Array(8)].map((_, i) => (
+      {/* Tiny floating dots — fewer on mobile */}
+      {[...Array(dotCount)].map((_, i) => (
         <motion.div
           key={`dot-${i}`}
           className={`absolute rounded-full ${i % 3 === 0 ? 'w-1 h-1 bg-indigo-400/20' : i % 3 === 1 ? 'w-1.5 h-1.5 bg-purple-400/25' : 'w-1 h-1 bg-cyan-400/20'}`}
@@ -51,30 +71,34 @@ const FloatingShapes = ({ isDark }) => {
             left: `${5 + i * 12}%`,
           }}
           animate={{
-            y: [0, -(15 + i * 3), 0],
-            x: [0, (i % 2 === 0 ? 8 : -8), 0],
+            y: [0, -(isMobile ? 8 : 15 + i * 3), 0],
+            x: [0, (i % 2 === 0 ? (isMobile ? 4 : 8) : (isMobile ? -4 : -8)), 0],
             opacity: [0.2, 0.6, 0.2],
           }}
           transition={{ duration: 3 + i * 0.7, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 }}
         />
       ))}
 
-      {/* Floating geometric accents */}
-      <motion.div
-        className={`absolute top-[15%] right-[10%] w-8 h-8 border rounded-lg ${isDark ? 'border-indigo-500/15' : 'border-indigo-400/10'}`}
-        animate={{ rotate: [0, 90, 180, 270, 360], y: [0, -10, 0] }}
-        transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, y: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
-      />
-      <motion.div
-        className={`absolute bottom-[20%] left-[8%] w-6 h-6 border rounded-full ${isDark ? 'border-purple-500/15' : 'border-purple-400/10'}`}
-        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className={`absolute top-[60%] right-[20%] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] ${isDark ? 'border-b-indigo-500/15' : 'border-b-indigo-400/10'}`}
-        animate={{ rotate: [0, 360], y: [0, -15, 0] }}
-        transition={{ rotate: { duration: 15, repeat: Infinity, ease: 'linear' }, y: { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 } }}
-      />
+      {/* Floating geometric accents — hidden on mobile */}
+      {!isMobile && (
+        <>
+          <motion.div
+            className={`absolute top-[15%] right-[10%] w-8 h-8 border rounded-lg ${isDark ? 'border-indigo-500/15' : 'border-indigo-400/10'}`}
+            animate={{ rotate: [0, 90, 180, 270, 360], y: [0, -10, 0] }}
+            transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, y: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
+          />
+          <motion.div
+            className={`absolute bottom-[20%] left-[8%] w-6 h-6 border rounded-full ${isDark ? 'border-purple-500/15' : 'border-purple-400/10'}`}
+            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className={`absolute top-[60%] right-[20%] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] ${isDark ? 'border-b-indigo-500/15' : 'border-b-indigo-400/10'}`}
+            animate={{ rotate: [0, 360], y: [0, -15, 0] }}
+            transition={{ rotate: { duration: 15, repeat: Infinity, ease: 'linear' }, y: { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 } }}
+          />
+        </>
+      )}
     </div>
   );
 };
@@ -167,7 +191,7 @@ const Hero = ({ theme }) => {
               variants={letterContainer}
               initial="hidden"
               animate="visible"
-              className={`text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+              className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
             >
               {firstName.split('').map((letter, i) => (
                 <motion.span key={`fn-${i}`} variants={letterChild} className="inline-block">
@@ -195,7 +219,7 @@ const Hero = ({ theme }) => {
           {/* Description */}
           <motion.p
             variants={fadeInUp}
-            className={`text-lg md:text-xl max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+            className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed px-2 sm:px-0 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
           >
             Passionate about building scalable web applications and creating
             seamless user experiences. Specializing in full-stack development
@@ -205,19 +229,19 @@ const Hero = ({ theme }) => {
           {/* CTA Buttons */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 px-4 sm:px-0"
           >
             <motion.a
               href="#projects"
               {...magneticHover}
-              className="btn-magnetic px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 transition-colors"
+              className="btn-magnetic w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 transition-colors"
             >
               View Projects
             </motion.a>
             <motion.a
               href="#contact"
               {...magneticHover}
-              className={`px-8 py-4 border-2 font-semibold rounded-xl transition-all duration-300 ${isDark ? 'border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10' : 'border-indigo-300 text-indigo-600 hover:bg-indigo-50'}`}
+              className={`w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 border-2 font-semibold rounded-xl transition-all duration-300 ${isDark ? 'border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10' : 'border-indigo-300 text-indigo-600 hover:bg-indigo-50'}`}
             >
               Contact Me
             </motion.a>

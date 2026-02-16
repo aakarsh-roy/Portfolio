@@ -72,19 +72,19 @@ const About = ({ theme }) => {
     <section
       id="about"
       ref={sectionRef}
-      className={`py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}
+      className={`py-16 md:py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
         >
           <motion.h2
             variants={sectionHeader}
-            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           >
             About <span className="gradient-text">Me</span>
           </motion.h2>
@@ -94,7 +94,7 @@ const About = ({ theme }) => {
           />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Avatar / Image Section with parallax */}
           <motion.div
             variants={fadeInLeft}
@@ -103,7 +103,7 @@ const About = ({ theme }) => {
             viewport={scrollViewport}
             className="relative"
           >
-            <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto">
+            <div className="relative w-52 h-52 sm:w-72 sm:h-72 md:w-96 md:h-96 mx-auto">
               {/* Decorative glow */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full opacity-15 blur-2xl"
@@ -113,19 +113,19 @@ const About = ({ theme }) => {
 
               {/* Main circle */}
               <div className={`relative w-full h-full rounded-full flex items-center justify-center border-2 ${isDark ? 'bg-gradient-to-br from-slate-800 to-slate-900 border-indigo-500/20' : 'bg-gradient-to-br from-gray-100 to-white border-indigo-300/30'}`}>
-                <span className="text-7xl md:text-8xl font-extrabold gradient-text select-none">AR</span>
+                <span className="text-5xl sm:text-7xl md:text-8xl font-extrabold gradient-text select-none">AR</span>
               </div>
 
               {/* Floating badges */}
               <motion.div
-                className="absolute -top-4 -right-4 px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-semibold shadow-lg shadow-indigo-500/25"
+                className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-full text-xs sm:text-sm font-semibold shadow-lg shadow-indigo-500/25"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
                 MERN Stack
               </motion.div>
               <motion.div
-                className="absolute -bottom-4 -left-4 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-semibold shadow-lg shadow-purple-500/25"
+                className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-600 text-white rounded-full text-xs sm:text-sm font-semibold shadow-lg shadow-purple-500/25"
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               >

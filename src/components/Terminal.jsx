@@ -41,8 +41,8 @@ const c = {
   link: (url, label) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-indigo-400 underline hover:text-indigo-300">${label || url}</a>`,
 };
 
-/* ─── ASCII art banner ──────────────────────────────────────────── */
-const BANNER = `
+/* ─── ASCII art banner (responsive) ─────────────────────────────── */
+const BANNER_DESKTOP = `
 ${c.indigo('╔══════════════════════════════════════════════════════════╗')}
 ${c.indigo('║')}                                                          ${c.indigo('║')}
 ${c.indigo('║')}     ${c.bold('█████╗  █████╗ ██╗  ██╗ █████╗ ██████╗ ███████╗██╗  ██╗')}  
@@ -59,6 +59,20 @@ ${c.indigo('╚═════════════════════�
 ${c.dim('Welcome to my interactive terminal portfolio!')}
 ${c.dim('Type')} ${c.green('help')} ${c.dim('to see available commands.')}
 `;
+
+const BANNER_MOBILE = `
+${c.indigo('╔════════════════════════╗')}
+${c.indigo('║')}  ${c.bold('AAKARSH ROY')}            ${c.indigo('║')}
+${c.indigo('║')}  ${c.cyan('MERN Stack Developer')}   ${c.indigo('║')}
+${c.indigo('╚════════════════════════╝')}
+
+${c.dim('Welcome! Type')} ${c.green('help')} ${c.dim('for commands.')}
+`;
+
+const getBanner = () => {
+  if (typeof window !== 'undefined' && window.innerWidth <= 640) return BANNER_MOBILE;
+  return BANNER_DESKTOP;
+};
 
 /* ─── Command processing ────────────────────────────────────────── */
 function processCommand(input, toggleTheme) {
@@ -295,7 +309,7 @@ ${c.dim(`Check it out: ${c.link(PORTFOLIO.github)}`)}
 const Terminal = ({ theme, toggleTheme }) => {
   const isDark = theme === 'dark';
   const [isOpen, setIsOpen] = useState(false);
-  const [history, setHistory] = useState([{ type: 'output', content: BANNER }]);
+  const [history, setHistory] = useState([{ type: 'output', content: getBanner() }]);
   const [input, setInput] = useState('');
   const [cmdHistory, setCmdHistory] = useState([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
@@ -401,7 +415,7 @@ const Terminal = ({ theme, toggleTheme }) => {
         animate={{ scale: 1 }}
         transition={{ delay: 2, type: 'spring', stiffness: 200 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 left-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group ${
+        className={`fixed bottom-6 left-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group ${
           isOpen ? 'scale-0 pointer-events-none' : ''
         } ${
           isDark
@@ -428,7 +442,7 @@ const Terminal = ({ theme, toggleTheme }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[9999] flex items-end justify-center p-4 md:p-8"
+            className="fixed inset-0 z-[9999] flex items-end justify-center p-2 sm:p-4 md:p-8"
             onClick={(e) => {
               if (e.target === e.currentTarget) setIsOpen(false);
             }}
@@ -448,7 +462,7 @@ const Terminal = ({ theme, toggleTheme }) => {
               exit={{ y: '100%', opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="relative w-full max-w-4xl rounded-t-2xl overflow-hidden shadow-2xl shadow-black/40"
-              style={{ height: isMinimized ? 'auto' : 'min(80vh, 600px)' }}
+              style={{ height: isMinimized ? 'auto' : typeof window !== 'undefined' && window.innerWidth <= 640 ? 'min(85vh, 500px)' : 'min(80vh, 600px)' }}
             >
               {/* Title bar */}
               <div
@@ -484,10 +498,10 @@ const Terminal = ({ theme, toggleTheme }) => {
                 <div
                   ref={scrollRef}
                   onClick={() => inputRef.current?.focus()}
-                  className={`overflow-y-auto font-mono text-sm leading-relaxed cursor-text ${
+                  className={`overflow-y-auto font-mono text-xs sm:text-sm leading-relaxed cursor-text ${
                     isDark ? 'bg-[#0a0a1a] text-gray-300' : 'bg-gray-900 text-gray-300'
                   }`}
-                  style={{ height: 'calc(100% - 44px)', padding: '16px' }}
+                  style={{ height: 'calc(100% - 44px)', padding: window.innerWidth <= 640 ? '10px' : '16px' }}
                 >
                   {/* History */}
                   {history.map((entry, i) => (

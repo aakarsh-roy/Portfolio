@@ -100,18 +100,18 @@ const Contact = ({ theme }) => {
   const labelStyle = `floating-label ${isDark ? 'text-gray-500' : 'text-gray-400'}`;
 
   return (
-    <section id="contact" className={`py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}>
+    <section id="contact" className={`py-16 md:py-24 lg:py-32 ${isDark ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-primary)]'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
         >
           <motion.h2
             variants={sectionHeader}
-            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           >
             Get In <span className="gradient-text">Touch</span>
           </motion.h2>
@@ -121,13 +121,13 @@ const Contact = ({ theme }) => {
           />
           <motion.p
             variants={fadeInUp}
-            className={`mt-6 max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+            className={`mt-6 max-w-2xl mx-auto text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
           >
             Have a project in mind or want to collaborate? Feel free to reach out!
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Contact Info Side */}
           <motion.div
             variants={fadeInLeft}
@@ -215,7 +215,7 @@ const Contact = ({ theme }) => {
             initial="hidden"
             whileInView="visible"
             viewport={scrollViewport}
-            className="glass-card p-8"
+            className="glass-card p-5 sm:p-8"
           >
             <h3 className={`text-2xl font-bold mb-8 ${isDark ? 'text-white' : 'text-gray-900'}`}>
               Send a Message

@@ -74,7 +74,7 @@ const CustomCursor = () => {
 const ThemeToggle = ({ theme, toggle }) => (
   <motion.button
     onClick={toggle}
-    className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full glass-card flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
+    className="fixed bottom-6 right-6 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}

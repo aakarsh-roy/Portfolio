@@ -82,18 +82,18 @@ const Experience = ({ theme }) => {
   };
 
   return (
-    <section id="experience" className="py-24 lg:py-32 gradient-bg">
+    <section id="experience" className="py-16 md:py-24 lg:py-32 gradient-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
         >
           <motion.h2
             variants={sectionHeader}
-            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           >
             Experience & <span className="gradient-text">Learning</span>
           </motion.h2>
@@ -103,7 +103,7 @@ const Experience = ({ theme }) => {
           />
           <motion.p
             variants={fadeInUp}
-            className={`mt-6 max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+            className={`mt-6 max-w-2xl mx-auto text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
           >
             My journey in software development through hands-on projects, academic work, and continuous learning
           </motion.p>
@@ -113,7 +113,7 @@ const Experience = ({ theme }) => {
         <div className="relative">
           {/* Animated timeline line */}
           <motion.div
-            className={`absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 ${isDark ? 'bg-white/10' : 'bg-gray-200'} transform md:-translate-x-1/2`}
+            className={`absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 ${isDark ? 'bg-white/10' : 'bg-gray-200'} transform md:-translate-x-1/2`}
             initial={{ scaleY: 0, originY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, amount: 0.1 }}
@@ -121,7 +121,7 @@ const Experience = ({ theme }) => {
           />
 
           {/* Experience items */}
-          <div className="space-y-16">
+          <div className="space-y-10 md:space-y-16">
             {experiences.map((exp, index) => {
               const c = colorMap[exp.color];
               const isEven = index % 2 === 0;
@@ -137,7 +137,7 @@ const Experience = ({ theme }) => {
                 >
                   {/* Timeline dot with pulse */}
                   <motion.div
-                    className={`absolute left-8 md:left-1/2 w-4 h-4 ${c.dot} rounded-full transform -translate-x-1/2 z-10 ring-4 ${isDark ? 'ring-[#0a0a1a]' : 'ring-white'}`}
+                    className={`absolute left-6 sm:left-8 md:left-1/2 w-4 h-4 ${c.dot} rounded-full transform -translate-x-1/2 z-10 ring-4 ${isDark ? 'ring-[#0a0a1a]' : 'ring-white'}`}
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
@@ -150,14 +150,14 @@ const Experience = ({ theme }) => {
                   {/* Content */}
                   <motion.div
                     variants={slideVariant}
-                    className={`ml-20 md:ml-0 md:w-5/12 ${
+                    className={`ml-14 sm:ml-20 md:ml-0 md:w-5/12 ${
                       isEven ? 'md:pr-16' : 'md:ml-auto md:pl-16'
                     }`}
                   >
                     <motion.div
                       whileHover={{ y: -4 }}
                       transition={{ duration: 0.3 }}
-                      className={`glass-card p-6 transition-shadow duration-300 ${isDark ? 'hover:shadow-lg hover:shadow-indigo-500/5' : 'hover:shadow-lg hover:shadow-indigo-200/20'}`}
+                      className={`glass-card p-4 sm:p-6 transition-shadow duration-300 ${isDark ? 'hover:shadow-lg hover:shadow-indigo-500/5' : 'hover:shadow-lg hover:shadow-indigo-200/20'}`}
                     >
                       {/* Header */}
                       <div className="flex items-start gap-4 mb-4">
@@ -220,7 +220,7 @@ const Experience = ({ theme }) => {
 
         {/* Call to Action */}
         <motion.div
-          className="text-center mt-20"
+          className="text-center mt-12 md:mt-20"
           initial="hidden"
           whileInView="visible"
           viewport={scrollViewport}
