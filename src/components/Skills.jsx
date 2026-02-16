@@ -1,4 +1,21 @@
-const Skills = () => {
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import {
+  sectionHeader,
+  underlineGrow,
+  fadeInUp,
+  staggerContainer,
+  cardItem,
+  hoverLift,
+  progressFill,
+  scrollViewport,
+} from '../utils/motionVariants';
+
+const Skills = ({ theme }) => {
+  const isDark = theme === 'dark';
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+
   const skillCategories = [
     {
       title: 'Frontend',
@@ -59,111 +76,138 @@ const Skills = () => {
     },
   ];
 
-  const getColorClasses = (color) => {
-    const colors = {
-      indigo: {
-        bg: 'bg-indigo-500/20',
-        text: 'text-indigo-400',
-        border: 'border-indigo-500/30',
-        progress: 'bg-indigo-500',
-        progressBg: 'bg-indigo-500/20',
-      },
-      purple: {
-        bg: 'bg-purple-500/20',
-        text: 'text-purple-400',
-        border: 'border-purple-500/30',
-        progress: 'bg-purple-500',
-        progressBg: 'bg-purple-500/20',
-      },
-      green: {
-        bg: 'bg-green-500/20',
-        text: 'text-green-400',
-        border: 'border-green-500/30',
-        progress: 'bg-green-500',
-        progressBg: 'bg-green-500/20',
-      },
-      yellow: {
-        bg: 'bg-yellow-500/20',
-        text: 'text-yellow-400',
-        border: 'border-yellow-500/30',
-        progress: 'bg-yellow-500',
-        progressBg: 'bg-yellow-500/20',
-      },
-    };
-    return colors[color];
+  const colorMap = {
+    indigo: { bg: 'bg-indigo-500/10', text: 'text-indigo-400', border: 'border-indigo-500/20', progress: 'bg-indigo-500', progressBg: 'bg-indigo-500/10' },
+    purple: { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/20', progress: 'bg-purple-500', progressBg: 'bg-purple-500/10' },
+    green: { bg: 'bg-green-500/10', text: 'text-green-400', border: 'border-green-500/20', progress: 'bg-green-500', progressBg: 'bg-green-500/10' },
+    yellow: { bg: 'bg-yellow-500/10', text: 'text-yellow-400', border: 'border-yellow-500/20', progress: 'bg-yellow-500', progressBg: 'bg-yellow-500/10' },
   };
 
+  const tools = ['Git', 'GitHub', 'VS Code', 'Postman', 'REST APIs', 'Socket.io', 'Tailwind CSS', 'Bootstrap', 'npm', 'Vite'];
+
   return (
-    <section id="skills" className="py-20 gradient-bg">
+    <section id="skills" ref={sectionRef} className="py-24 lg:py-32 gradient-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <motion.div
+          className="text-center mb-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollViewport}
+        >
+          <motion.h2
+            variants={sectionHeader}
+            className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
+          >
             My <span className="gradient-text">Skills</span>
-          </h2>
-          <div className="w-24 h-1 bg-indigo-500 mx-auto rounded-full"></div>
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">
+          </motion.h2>
+          <motion.div
+            variants={underlineGrow}
+            className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full origin-center"
+          />
+          <motion.p
+            variants={fadeInUp}
+            className={`mt-6 max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+          >
             A comprehensive toolkit for building modern web applications from frontend to backend
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollViewport}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {skillCategories.map((category, index) => {
-            const colors = getColorClasses(category.color);
+            const c = colorMap[category.color];
             return (
-              <div
+              <motion.div
                 key={index}
-                className="card-hover bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50"
+                variants={cardItem}
+                {...hoverLift}
+                className={`glass-card p-6 transition-all duration-300 hover:shadow-lg ${isDark ? 'hover:shadow-indigo-500/5' : 'hover:shadow-indigo-200/30'}`}
               >
                 {/* Category Header */}
                 <div className="flex items-center gap-3 mb-6">
-                  <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center ${colors.text}`}>
+                  <motion.div
+                    className={`w-12 h-12 ${c.bg} rounded-xl flex items-center justify-center ${c.text}`}
+                    whileHover={{ rotate: 10, scale: 1.1 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
                     {category.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-white">{category.title}</h3>
+                  </motion.div>
+                  <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    {category.title}
+                  </h3>
                 </div>
 
-                {/* Skills List */}
+                {/* Skills with animated progress bars */}
                 <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex}>
+                  {category.skills.map((skill, si) => (
+                    <div key={si}>
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-300 font-medium">{skill.name}</span>
-                        <span className={`text-sm ${colors.text}`}>{skill.level}%</span>
+                        <span className={`font-medium text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                          {skill.name}
+                        </span>
+                        <span className={`text-xs font-semibold ${c.text}`}>{skill.level}%</span>
                       </div>
-                      <div className={`h-2 ${colors.progressBg} rounded-full overflow-hidden`}>
-                        <div
-                          className={`h-full ${colors.progress} rounded-full transition-all duration-1000 ease-out`}
-                          style={{ width: `${skill.level}%` }}
-                        ></div>
+                      <div className={`h-2 ${c.progressBg} rounded-full overflow-hidden`}>
+                        <motion.div
+                          className={`h-full ${c.progress} rounded-full`}
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 + si * 0.1 }}
+                        />
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Additional Skills Badges */}
-        <div className="mt-16">
-          <h3 className="text-center text-2xl font-semibold text-white mb-8">
+        {/* Tools & Technologies */}
+        <motion.div
+          className="mt-20"
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollViewport}
+        >
+          <motion.h3
+            variants={fadeInUp}
+            className={`text-center text-2xl font-bold mb-8 ${isDark ? 'text-white' : 'text-gray-900'}`}
+          >
             Tools & Technologies
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {['Git', 'GitHub', 'VS Code', 'Postman', 'REST APIs', 'Socket.io', 'Tailwind CSS', 'Bootstrap', 'npm', 'Vite'].map(
-              (tool, index) => (
-                <span
-                  key={index}
-                  className="px-4 py-2 bg-slate-800/50 text-gray-300 rounded-full border border-slate-700/50 hover:border-indigo-500/50 hover:text-indigo-400 transition-all duration-300 cursor-default"
-                >
-                  {tool}
-                </span>
-              )
-            )}
-          </div>
-        </div>
+          </motion.h3>
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={scrollViewport}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            {tools.map((tool, index) => (
+              <motion.span
+                key={index}
+                variants={cardItem}
+                whileHover={{ scale: 1.1, y: -4 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-300 cursor-default ${
+                  isDark
+                    ? 'bg-white/5 text-gray-300 border-white/10 hover:border-indigo-500/40 hover:text-indigo-400 hover:bg-indigo-500/5'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50'
+                }`}
+              >
+                {tool}
+              </motion.span>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
