@@ -36,6 +36,26 @@ const Navbar = ({ theme }) => {
 
   const isDark = theme === 'dark';
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      // Close menu first on mobile so layout settles, then scroll
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        // Delay scroll to let the menu exit animation + layout reflow complete
+        setTimeout(() => {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 350);
+      } else {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <motion.nav
       variants={navbarVariants}
@@ -68,6 +88,7 @@ const Navbar = ({ theme }) => {
                 <motion.a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i, duration: 0.4 }}
@@ -99,6 +120,7 @@ const Navbar = ({ theme }) => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`md:hidden p-2.5 rounded-lg transition-colors ${isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
             whileTap={{ scale: 0.9 }}
+            style={{ touchAction: 'manipulation' }}
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,10 +167,11 @@ const Navbar = ({ theme }) => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 * i }}
+                  style={{ touchAction: 'manipulation' }}
                   className={`block px-5 py-3 font-medium transition-colors duration-300 ${
                     activeSection === link.href.slice(1)
                       ? 'text-indigo-400'

@@ -42,6 +42,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Offset scroll targets for fixed navbar */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
