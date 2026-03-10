@@ -2,15 +2,15 @@
 
 /* ─── Custom Theme Variables ────────────────────────────────────── */
 :root {
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #111127;
-  --bg-card: rgba(17, 17, 39, 0.6);
-  --text-primary: #f1f5f9;
+  --bg-primary: #06060f;
+  --bg-secondary: #0c0c20;
+  --bg-card: rgba(12, 12, 32, 0.65);
+  --text-primary: #e8ecf4;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --accent: #6366f1;
   --accent-light: #818cf8;
-  --accent-glow: rgba(99, 102, 241, 0.15);
+  --accent-glow: rgba(99, 102, 241, 0.18);
   --border: rgba(99, 102, 241, 0.12);
   --gradient-start: #6366f1;
   --gradient-mid: #8b5cf6;
@@ -52,6 +52,19 @@ body {
   color: var(--text-primary);
   transition: background-color 0.5s ease, color 0.5s ease;
   overflow-x: hidden;
+}
+
+/* ─── Deep Space Background ─────────────────────────────────────── */
+[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 60%, rgba(59, 40, 120, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 75% 20%, rgba(30, 50, 120, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 80%, rgba(80, 40, 100, 0.05) 0%, transparent 50%);
 }
 
 ::selection { background: var(--accent); color: white; }
@@ -119,6 +132,9 @@ body {
 /* ─── Gradient Background ───────────────────────────────────────── */
 .gradient-bg {
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+}
+[data-theme="dark"] .gradient-bg {
+  background: linear-gradient(160deg, #06060f 0%, #0d0d24 40%, #0a0a18 70%, #06060f 100%);
 }
 
 /* ─── Glassmorphism Card ────────────────────────────────────────── */

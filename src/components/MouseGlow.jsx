@@ -27,11 +27,9 @@ const MouseGlow = ({ theme }) => {
       className="fixed inset-0 pointer-events-none z-[2] transition-opacity duration-500"
       aria-hidden="true"
       style={{
-        background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, ${
-          isDark
-            ? 'rgba(99,102,241,0.06), rgba(139,92,246,0.03), transparent 70%'
-            : 'rgba(99,102,241,0.04), rgba(139,92,246,0.02), transparent 70%'
-        })`,
+        background: isDark
+          ? `radial-gradient(650px circle at ${pos.x}px ${pos.y}px, rgba(80,90,220,0.07), rgba(120,70,200,0.04) 40%, rgba(60,40,140,0.02) 60%, transparent 75%)`
+          : `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, rgba(99,102,241,0.04), rgba(139,92,246,0.02), transparent 70%)`,
       }}
     />
   );
